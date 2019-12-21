@@ -4,5 +4,7 @@
   "description": "Post images to chat based on saved keyword/image pairs",
   "main": "bot.js",
   "author": "Talon Jones",
-  "dependencies": {}
+  "dependencies": {
+    "discord.io": "^2.5.3"
+  }
 }
