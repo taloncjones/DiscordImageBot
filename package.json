@@ -1,0 +1,8 @@
+{
+  "name": "image-bot",
+  "version": "1.0.0",
+  "description": "Post images to chat based on saved keyword/image pairs",
+  "main": "bot.js",
+  "author": "Talon Jones",
+  "dependencies": {}
+}
