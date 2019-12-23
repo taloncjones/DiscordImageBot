@@ -1,41 +1,31 @@
-var Discord = require('discord.io');
+var Discord = require('discord.js');
 var auth = require('./auth.json');
 
-var bot = new Discord.Client({
-  token: auth.token,
-  autorun: true
-});
+var bot = new Discord.Client();
 
 let botName;
-bot.on('ready', function () {
-  console.log('%s - %s\n', bot.username, bot.id);
-  botName = bot.username;
+bot.on('ready', () => {
+  console.log('%s - %s\n', bot.user.tag, bot.user.id);
+  botName = bot.user.username;
 });
 
-bot.on('message', function (user, userID, channelID, message, event) {
-  if (message.substring(0, 1) == '!') {
-    var args = message.substring(1).split(' ');
+bot.on('message', message => {
+  if (message.content.startsWith(`${config.prefix}`)) {
+    var args = message.content.substring(1).split(' ');
     var cmd = args[0];
 
     args = args.splice(1);
     switch (cmd) {
       case 'save':
-        bot.sendMessage({
-          to: channelID,
-          message: 'Save received'
-        });
+        message.channel.send('Send received');
         break;
       case 'list':
-        bot.sendMessage({
-          to: channelID,
-          message: 'List received'
-        });
+        message.channel.send('List received');
         break;
     }
-  } else if (user != botName) {
-    bot.sendMessage({
-      to: channelID,
-      message: message.substring(0)
-    });
+  } else if (message.author.username != botName) {
+    message.channel.send(message.content);
   }
 });
+
+bot.login(auth.token)
