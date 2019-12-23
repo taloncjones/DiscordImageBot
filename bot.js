@@ -1,7 +1,20 @@
 var Discord = require('discord.js');
 var auth = require('./auth.json');
+var config = require('./config.json');
+var commands = require(`./${config.commands}`)
 
 var bot = new Discord.Client();
+
+function addCommand(cmd, value) {
+  commands[cmd] = value;
+  return;
+}
+
+function listCommands(message) {
+  var cmds = JSON.stringify(commands);
+  message.channel.send(`${cmds}`);
+  return;
+}
 
 let botName;
 bot.on('ready', () => {
@@ -17,10 +30,12 @@ bot.on('message', message => {
     args = args.splice(1);
     switch (cmd) {
       case 'save':
-        message.channel.send('Send received');
+        message.channel.send('Save received');
+        addCommand('hi', 'hello');
         break;
       case 'list':
         message.channel.send('List received');
+        listCommands(message);
         break;
     }
   } else if (message.author.username != botName) {
