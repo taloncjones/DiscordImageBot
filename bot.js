@@ -6,7 +6,10 @@ var commands = require(`./${config.commands}`)
 var bot = new Discord.Client();
 
 function addCommand(cmd, value) {
-  commands[cmd] = value;
+  commands['commands'].push({
+    trigger: cmd,
+    response: value
+  });
   return;
 }
 
