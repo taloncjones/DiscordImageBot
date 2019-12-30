@@ -19,6 +19,16 @@ function listCommands(message) {
   return;
 }
 
+function saveCommands() {
+  var fs = require('fs');
+  fs.writeFile(`./${config.commands}`, JSON.stringify(commands), function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  return;
+}
+
 let botName;
 bot.on('ready', () => {
   console.log('%s - %s\n', bot.user.tag, bot.user.id);
@@ -32,13 +42,17 @@ bot.on('message', message => {
 
     args = args.splice(1);
     switch (cmd) {
-      case 'save':
-        message.channel.send('Save received');
+      case 'add':
+        message.channel.send('New command received');
         addCommand('hi', 'hello');
         break;
       case 'list':
         message.channel.send('List received');
         listCommands(message);
+        break;
+      case 'save':
+        message.channel.send('Save received. Saving to file...');
+        saveCommands();
         break;
     }
   } else if (message.author.username != botName) {
