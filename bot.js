@@ -14,8 +14,13 @@ function addCommand(cmd, value) {
 }
 
 function listCommands(message) {
-  var cmds = JSON.stringify(commands);
-  message.channel.send(`${cmds}`);
+  var cmds = commands['commands'];
+  var msg = ""
+
+  cmds.forEach(pair => {
+    msg += "Keyword: " + pair['keyword'] + "\tResponse: " + pair['response'] + "\n"
+  });
+  message.channel.send(msg);
   return;
 }
 
@@ -60,7 +65,6 @@ bot.on('message', message => {
           break;
         }
       case 'list':
-        message.channel.send('List received');
         listCommands(message);
         break;
       case 'save':
