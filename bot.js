@@ -30,7 +30,7 @@ function saveCommands() {
 }
 
 function isAdmin(member) {
-  if (member.roles.find(r => r.name === "Admin") || member.roles.find(r => rname === "Mod")) {
+  if (member.roles.find(r => config.roles.includes(r.name))) {
     return true;
   } else {
     return false;
