@@ -7,7 +7,7 @@ var bot = new Discord.Client();
 
 function addCommand(cmd, value) {
   commands['commands'].push({
-    trigger: cmd,
+    keyword: cmd,
     response: value
   });
   return;
@@ -44,8 +44,13 @@ bot.on('message', message => {
     switch (cmd) {
       case 'add':
         message.channel.send('New command received');
-        addCommand('hi', 'hello');
-        break;
+        if (args.length !== 2) {
+          message.channel.send('Two arguments required. E.g. "!add [keyword] [response]"');
+          break;
+        } else {
+          addCommand(args[0], args[1]);
+          break;
+        }
       case 'list':
         message.channel.send('List received');
         listCommands(message);
