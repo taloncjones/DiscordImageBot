@@ -13,6 +13,10 @@ function addCommand(cmd, value) {
   return;
 }
 
+function isCommand(message) {
+  return message.content;
+}
+
 function listCommands(message) {
   var cmds = commands['commands'];
   var msg = ""
@@ -73,7 +77,7 @@ bot.on('message', message => {
         break;
     }
   } else if (message.author.username != botName) {
-    message.channel.send(message.content);
+    message.channel.send(isCommand(message));
   }
 });
 
