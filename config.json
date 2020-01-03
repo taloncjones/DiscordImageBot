@@ -1,4 +1,5 @@
 {
   "prefix": "!",
-  "commands": "commands.json"
+  "commands": "commands.json",
+  "roles": ["Admin", "Mod", "Moderator"]
 }

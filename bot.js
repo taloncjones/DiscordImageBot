@@ -29,6 +29,14 @@ function saveCommands() {
   return;
 }
 
+function isAdmin(member) {
+  if (member.roles.find(r => r.name === "Admin") || member.roles.find(r => rname === "Mod")) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 let botName;
 bot.on('ready', () => {
   console.log('%s - %s\n', bot.user.tag, bot.user.id);
@@ -36,7 +44,7 @@ bot.on('ready', () => {
 });
 
 bot.on('message', message => {
-  if (message.content.startsWith(`${config.prefix}`)) {
+  if (message.content.startsWith(`${config.prefix}`) && isAdmin(message.member)) {
     var args = message.content.substring(1).split(' ');
     var cmd = args[0];
 
