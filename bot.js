@@ -1,7 +1,7 @@
 var Discord = require('discord.js');
 var auth = require('./auth.json');
 var config = require('./config.json');
-var commands = require(`./${config.commands}`)
+var commands = require(`./${config.commands}`);
 
 var bot = new Discord.Client();
 
@@ -14,7 +14,17 @@ function addCommand(cmd, value) {
 }
 
 function isCommand(message) {
-  return message.content;
+  var cmds = commands['commands'];
+  var response = ""
+
+  cmds.forEach(pair => {
+    var keyword = new RegExp("\\b" + pair['keyword'] + "\\b", 'gi');
+    var found = message.content.match(keyword);
+    if (found) {
+      response = pair['response'];
+    }
+  });
+  return response;
 }
 
 function listCommands(message) {
@@ -77,7 +87,10 @@ bot.on('message', message => {
         break;
     }
   } else if (message.author.username != botName) {
-    message.channel.send(isCommand(message));
+    var response = isCommand(message);
+    if (response) {
+      message.channel.send(response);
+    }
   }
 });
 
