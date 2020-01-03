@@ -43,11 +43,11 @@ bot.on('message', message => {
     args = args.splice(1);
     switch (cmd) {
       case 'add':
-        message.channel.send('New command received');
         if (args.length !== 2) {
           message.channel.send('Two arguments required. E.g. "!add [keyword] [response]"');
           break;
         } else {
+          message.channel.send(`New command received. Added - Keyword: ${args[0]} Response: ${args[1]}`);
           addCommand(args[0], args[1]);
           break;
         }
