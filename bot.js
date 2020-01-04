@@ -5,12 +5,27 @@ var commands = require(`./${config.commands}`);
 
 var bot = new Discord.Client();
 
-function addCommand(cmd, value) {
-  commands['commands'].push({
-    keyword: cmd,
-    response: value
+function addCommand(message, cmd, value) {
+  var cmds = commands['commands'];
+  var found = false;
+
+  cmds.forEach(pair => {
+    if (pair['keyword'] === cmd) {
+      found = true;
+    }
   });
-  return;
+  
+  if (found) {
+    message.channel.send(`${cmd} already exists. Use '!remove ${cmd}' to remove the existing command and try again.`);
+    return 1;
+  } else {
+    commands['commands'].push({
+      keyword: cmd,
+      response: value
+    });
+    message.channel.send(`New command received. Added - Keyword: ${cmd} Response: ${value}`);
+    return 0;
+  }
 }
 
 function isCommand(message) {
