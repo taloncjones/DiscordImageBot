@@ -29,7 +29,7 @@ function isCommand(message) {
 
 function listCommands(message) {
   var cmds = commands['commands'];
-  var msg = ""
+  var msg = "Command list:\n"
 
   cmds.forEach(pair => {
     msg += "Keyword: " + pair['keyword'] + "\tResponse: " + pair['response'] + "\n"
