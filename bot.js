@@ -18,7 +18,7 @@ function isCommand(message) {
   var response = ""
 
   cmds.forEach(pair => {
-    var keyword = new RegExp("\\b" + pair['keyword'] + "\\b", 'gi');
+    var keyword = new RegExp("\\b" + pair['keyword'] + "\\b", 'g');
     var found = message.content.match(keyword);
     if (found) {
       response = pair['response'];
@@ -35,7 +35,7 @@ function listCommands(message) {
     msg += "Keyword: " + pair['keyword'] + "\tResponse: " + pair['response'] + "\n"
   });
   message.channel.send(msg);
-  return;
+  return 0;
 }
 
 function removeCommand(message, keyword) {
@@ -47,6 +47,7 @@ function removeCommand(message, keyword) {
       return 0;
     }
   }
+  message.channel.send('Keyword not found. Use !list to see available keywords.');
   return 1;
 }
 
@@ -86,8 +87,9 @@ bot.on('message', message => {
           message.channel.send('Two arguments required. E.g. "!add [keyword] [response]"');
           break;
         } else {
-          message.channel.send(`New command received. Added - Keyword: ${args[0]} Response: ${args[1]}`);
-          addCommand(args[0], args[1]);
+          if (!addCommand(message, args[0], args[1])) {
+            saveCommands();
+          }
           break;
         }
       case 'list':
@@ -98,8 +100,8 @@ bot.on('message', message => {
           message.channel.send('Keyword required. E.g. "!remove [keyword]"');
           break;
         } else {
-          if (removeCommand(message, args[0])) {
-            message.channel.send('Keyword not found. Use !list to see available keywords.');
+          if (!removeCommand(message, args[0])) {
+            saveCommands();
           }
           break;
         }
