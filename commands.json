@@ -1,8 +1,8 @@
 {
   "commands": [
     {
-      "keyword": "test",
-      "response": "testing"
+      "keyword": "hello",
+      "response": "world"
     }
   ]
 }
