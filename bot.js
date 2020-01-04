@@ -14,7 +14,7 @@ function addCommand(message, cmd, value) {
       found = true;
     }
   });
-  
+
   if (found) {
     message.channel.send(`${cmd} already exists. Use '!remove ${cmd}' to remove the existing command and try again.`);
     return 1;
@@ -66,14 +66,15 @@ function removeCommand(message, keyword) {
   return 1;
 }
 
-function saveCommands() {
+function saveCommands(message) {
   var fs = require('fs');
   fs.writeFile(`./${config.commands}`, JSON.stringify(commands), function (err) {
     if (err) {
-      console.log(err);
+      message.channel.send(err);
+      return 1;
     }
   });
-  return;
+  return 0;
 }
 
 function isAdmin(member) {
@@ -103,7 +104,7 @@ bot.on('message', message => {
           break;
         } else {
           if (!addCommand(message, args[0], args[1])) {
-            saveCommands();
+            saveCommands(message);
           }
           break;
         }
@@ -116,13 +117,14 @@ bot.on('message', message => {
           break;
         } else {
           if (!removeCommand(message, args[0])) {
-            saveCommands();
+            saveCommands(message);
           }
           break;
         }
       case 'save':
-        message.channel.send('Save received. Saving to file...');
-        saveCommands();
+        if (!saveCommands(message)) {
+          message.channel.send('Save received. Saved to file.');
+        }
         break;
     }
   } else if (message.author.username != botName) {
