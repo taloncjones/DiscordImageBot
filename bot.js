@@ -116,6 +116,16 @@ bot.on('message', message => {
           }
           break;
         }
+      case 'help':
+        var help = `Commands and usage:
+        !add [keyword] [response] - Adds the specified keyword/response to file. Users who type [keyword] will receive a [response] in return.
+        !help - Lists available commands and usages.
+        !list - Lists keywords and responses in memory.
+        !load - Loads keywords/responses from file. Use if manual changes are made to the command file or to undo removals.
+        !remove [keyword] - Removes the specified keyword/response from memory. Note: Changes are not immediately saved to file.
+        !save - Saves keywords/responses to file. Use to confirm changes of !remove.`
+        message.channel.send(help);
+        break;
       case 'list':
         listCommands(message);
         break;
@@ -128,7 +138,7 @@ bot.on('message', message => {
           break;
         } else {
           if (!removeCommand(message, args[0])) {
-            saveCommands(message);
+            message.channel.send('Keyword removed. Use "!save" to save changes to file.');
           }
           break;
         }
