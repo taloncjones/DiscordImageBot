@@ -42,6 +42,14 @@ function isCommand(message) {
   return response;
 }
 
+function loadCommands(message) {
+  var fs = require('fs');
+  data = fs.readFileSync(`./${config.commands}`);
+  commands = JSON.parse(data);
+  message.channel.send(`Loaded commands from ${config.commands}`);
+  return 0;
+}
+
 function listCommands(message) {
   var cmds = commands['commands'];
   var msg = "Command list:\n"
@@ -110,6 +118,9 @@ bot.on('message', message => {
         }
       case 'list':
         listCommands(message);
+        break;
+      case 'load':
+        loadCommands(message);
         break;
       case 'remove':
         if (args.length !== 1) {
