@@ -38,6 +38,18 @@ function listCommands(message) {
   return;
 }
 
+function removeCommand(message, keyword) {
+  var cmds = commands['commands'];
+  for (let index = 0; index < cmds.length; index++) {
+    if (cmds[index]['keyword'] === keyword) {
+      commands['commands'].splice(index, 1);
+      message.channel.send(`Removed: ${keyword}`);
+      return 0;
+    }
+  }
+  return 1;
+}
+
 function saveCommands() {
   var fs = require('fs');
   fs.writeFile(`./${config.commands}`, JSON.stringify(commands), function (err) {
@@ -81,6 +93,16 @@ bot.on('message', message => {
       case 'list':
         listCommands(message);
         break;
+      case 'remove':
+        if (args.length !== 1) {
+          message.channel.send('Keyword required. E.g. "!remove [keyword]"');
+          break;
+        } else {
+          if (removeCommand(message, args[0])) {
+            message.channel.send('Keyword not found. Use !list to see available keywords.');
+          }
+          break;
+        }
       case 'save':
         message.channel.send('Save received. Saving to file...');
         saveCommands();
