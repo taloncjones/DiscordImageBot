@@ -10,7 +10,7 @@ This bot's purpose is to scan chat messages and post a response in reply to keyw
     - The Application name can be whatever you want it to be, but this will also be the name that appears in the Discord channel. __Note__: This _can_ be changed later.
 2. In the left side menu, select __Bot__ to open the Bots page, and click __Add Bot__ to create a new bot for the application.
     - You may wish to disable public access to this bot. You can do this by unchecking the _Public Bot_ option.
-3. Under _Token_ there should be a [Click to Reveal Token](.) link. Click this to reveal your token, as you'll need it for the next section.
+3. Under _Token_ there should be a _Click to Reveal Token_ link. Click this to reveal your token, as you'll need it for the next section.
 ## Configure Files
 4. Configuration is minimal, user will simply need to update [auth.json](./auth.json) with their Discord Bot's Token (taken from step 3 above).
 ## Install Dependencies
