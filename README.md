@@ -27,7 +27,7 @@ This bot's purpose is to scan chat messages and post a response in reply to keyw
 6. Use `node bot.js` (or `pm2 start bot.js` if using PM2) to start the Discord Image Bot.
 ## Add Bot to Discord Server
 7. Navigate back to the Application's _General Information_ page, and look for the _Client ID_. Copy this for step 9.
-8. In a separate window/tab follow [this](https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0) link. This link will take you to Discord's oauth page, but since it's currently just `YOUR_CLIENT_ID_HERE` it will display and error.
+8. In a separate window/tab follow [this](https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0) link. This link will take you to Discord's oauth page, but since it's currently just `YOUR_CLIENT_ID_HERE` it will display an error.
 9. In the URL, replace YOUR_CLIENT_ID_HERE with the Client ID copied in step 7, and go to that link.
 10. In the page displayed, the Bot you created will need to be directed to a server to join. Use the dropdown to select your server and click __Authorize__. __Note__: You need admin rights to the Discord server for it to appear.
 
